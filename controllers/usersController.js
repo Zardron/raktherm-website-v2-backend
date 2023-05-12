@@ -25,6 +25,7 @@ const createNewUsers = asyncHandler(async (req, res) => {
     companyName,
     country,
     phoneNumber,
+    verificationCode,
   } = req.body;
 
   // Confirm data
@@ -60,6 +61,7 @@ const createNewUsers = asyncHandler(async (req, res) => {
     companyName,
     country,
     phoneNumber,
+    verificationCode,
   };
   // Create and store new user
   const user = await User.create(userObject);

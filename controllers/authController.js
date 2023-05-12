@@ -133,8 +133,34 @@ const logout = (req, res) => {
   res.json({ message: "Cookie cleared" });
 };
 
+// @desc Delete a user
+// @route DELETE /users
+// @access Private
+const deleteUserByEmail = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+
+  // Confirm data
+  if (!email) {
+    return res.status(400).json({ message: "Email is Required" });
+  }
+
+  // Does the user exist to delete?
+  const result = await User.findOneAndDelete({ email }).lean().exec();
+
+  console.log(result);
+
+  if (!result) {
+    return res.status(400).json({ message: "User not found" });
+  }
+
+  const reply = `Username ${result.username} with ID ${result._id} deleted`;
+
+  res.json(reply);
+});
+
 module.exports = {
   login,
   refresh,
   logout,
+  deleteUserByEmail,
 };

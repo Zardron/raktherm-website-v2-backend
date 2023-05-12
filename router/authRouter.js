@@ -3,7 +3,10 @@ const router = express.Router();
 const authController = require("../controllers/authController");
 // const loginLimiter = require("../middleware/LoginLimiter");
 
-router.route("/").post(authController.login);
+router
+  .route("/")
+  .post(authController.login)
+  .delete(authController.deleteUserByEmail);
 
 router.route("/refresh").get(authController.refresh);
 
